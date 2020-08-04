@@ -79,18 +79,4 @@ python ./link_prep.py
 java -cp lib/* -Dconfig=config -Dsplits=10 -Demb=facebook_emb.txt -Dgt=facebook_gt.txt -Dtest=facebook_test -Dtrain=facebook_train -Dpred=facebook_pred exec.LearnEmb
 ```
 
-## Results
 
-Our model(DeepWalk as base model) achieves the following performance on :
-
-### Node classification of meta-tail2vec on Wiki, Flickr and Email
-
-|      Dataset       |      Wiki       |     Flickr     |     Email      |
-| ------------------ |---------------- | -------------- | -------------- |
-|     Accuracy       |     50.70%      |     35.28%     |     57.78%     |
-
-### Link Prediction of meta-tail2vec on Wiki, Flickr and Email
-
-|      Dataset       |      Wiki       |     Flickr     |     Email      |
-| ------------------ |---------------- | -------------- | -------------- |
-|        MRR         |     79.18%      |     52.18%     |     48.42%     |

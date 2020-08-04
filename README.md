@@ -12,7 +12,7 @@ To install requirements:
 pip install -r requirements.txt
 ```
 
-To download datasets:
+You can also download the datasets from the links:
 [Wiki](https://github.com/thunlp/OpenNE/tree/master/data/wiki).
 [Flickr](http://socialcomputing.asu.edu/datasets/Flickr).
 [Email](https://snap.stanford.edu/data/email-Eu-core.html).
@@ -36,7 +36,7 @@ To download datasets:
 	- Dtest=<filename> Test file name + *prefix*, the prefix can be 1 or 2 or 3 which represents different splits. If  -Dsplit=10, code will automaticlly load 1-10.
 	- Dtrain=<filename> Train file name + *prefix*, the same with Dtest.
 	- Dpred=<filename> output file in order, each query in test also in this file, but maybe not the same row.
-- meta-tail2vec/dataset/:
+- meta-tail2vec/dataset/: (unzip before use)
     - ./flickr/: Flcikr dataset.
     - ./email/: Email dataset.
     - ./wiki/: Wiki dataset.

@@ -1,2 +1,2 @@
 Python == 3.6
-Tensorflow == 1.13.0
+Tensorflow == 1.15.4

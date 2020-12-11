@@ -100,7 +100,7 @@ if __name__ == '__main__':
     all_results_5 = defaultdict(list)
     num_splits = 10
     for s in range(num_splits):
-        train_nodes, _, _, _ = train_test_split(nodes4train, range(len(nodes4train)), train_size=1000,
+        train_nodes, _, _, _ = train_test_split(nodes4train, range(len(nodes4train)), train_size=len(test_nodes),
                                                 random_state=19 + s * 7)
         X_train_, y_train_ = [], []
         for n in train_nodes:

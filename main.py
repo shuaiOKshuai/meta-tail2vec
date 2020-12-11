@@ -13,10 +13,10 @@ os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
 
-def train(model, sess):
+def train(model, sess, batch_num):
     prelosses, postlosses = [], []
 
-    for iteration in range(50000):
+    for iteration in range(batch_num):
         ops = [model.meta_op]
 
         if iteration % 20 == 0:
@@ -68,7 +68,15 @@ def main():
     kshot = 5
     meta_batchsz = 4
     k = 5
-
+    batch_num =50000
+    if dataset_name == 'flickr':
+        batch_num = 50000
+    elif dataset_name == 'wiki':
+        batch_num = 10000
+    elif dataset_name == 'email':
+        batch_num = 5000
+    else:
+        batch_num = 10000
     db = DataGenerator(main_dir, dataset_name, kshot, meta_batchsz, 50000)
     if training:
         node_tensor, label_tensor, data_tensor = db.make_data_tensor(training=True)
@@ -111,7 +119,7 @@ def main():
         print("Restoring model weights from ", model_file)
         saver.restore(sess, model_file)
 
-    train(model, sess)
+    train(model, sess, batch_num)
     test(model, sess, dataset_name)
 
 

@@ -5,17 +5,18 @@ from sklearn.model_selection import train_test_split
 from collections import defaultdict
 from sklearn.metrics import accuracy_score
 
-dataset = 'email'
-train_dir = './data/' + dataset + '/graphsage.emb'
-test_dir_1 = './data/' + dataset + '/result_1_sage.csv'
-test_dir_3 = './data/' + dataset + '/result_3_sage.csv'
-test_dir_5 = './data/' + dataset + '/result_5_sage.csv'
+dataset = ''
+train_dir = './data/' + dataset + '/graph.embeddings'
+test_dir_1 = './data/' + dataset + '/result_1.csv'
+test_dir_3 = './data/' + dataset + '/result_3.csv'
+test_dir_5 = './data/' + dataset + '/result_5.csv'
 
 
 def read_node_class():
     nodes_list = list()
     node_class_dict = dict()
     test_nodes_list = list()
+    class_num_dict = dict()
     with open('./data/' + dataset + '/test.csv', "r") as f:
         lines = f.readlines()
         for line in lines:
@@ -25,13 +26,17 @@ def read_node_class():
         lines = f.readlines()
         for line in lines:
             temp = list(line.strip('\n').split(' '))
+            if temp[1] not in class_num_dict.keys():
+                class_num_dict[temp[1]] = 1
+            else:
+                class_num_dict[temp[1]] += 1
             nodes_list.append(temp[0])
             node_class_dict[temp[0]] = temp[1]
     nodes4train_list = list()
     for n in nodes_list:
         if n not in test_nodes_list:
             nodes4train_list.append(n)
-    return nodes4train_list, test_nodes_list, node_class_dict
+    return nodes4train_list, test_nodes_list, node_class_dict, class_num_dict
 
 
 def read_embeddings(train_dir, test_dir_1, test_dir_3, test_dir_5):
@@ -66,7 +71,11 @@ def read_embeddings(train_dir, test_dir_1, test_dir_3, test_dir_5):
 
 
 if __name__ == '__main__':
-    nodes4train, test_nodes, node_class = read_node_class()
+    nodes4train, test_nodes, node_class, class_num = read_node_class()
+    max_class = max(class_num, key = class_num.get)
+    microf_labels = list(class_num.keys())
+    microf_labels.remove(str(max_class))
+    microf_labels = [int(x) for x in microf_labels]
     train_emb, test_emb_1, test_emb_3, test_emb_5 = read_embeddings(train_dir, test_dir_1, test_dir_3, test_dir_5)
     all_results = defaultdict(list)
     all_results_1 = defaultdict(list)
@@ -74,9 +83,8 @@ if __name__ == '__main__':
     all_results_5 = defaultdict(list)
     num_splits = 10
     for s in range(num_splits):
-        train_nodes, _, _, _ = train_test_split(nodes4train, range(len(nodes4train)), train_size=len(test_nodes),
+        train_nodes, _, _, _ = train_test_split(nodes4train, range(len(nodes4train)), train_size=100,
                                                 random_state=19 + s * 7)
-        # train_nodes = nodes4train
         X_train_, y_train_ = [], []
         for n in train_nodes:
             X_train_.append(train_emb[n])
@@ -107,26 +115,38 @@ if __name__ == '__main__':
         results = {}
         averages = ["micro", "macro"]
         for average in averages:
-            results[average] = f1_score(y_test, preds, average=average)
-        results["accuracy"] = accuracy_score(y_test, preds)
+            if average == "micro":
+                results[average] = f1_score(y_test, preds, average=average, labels=np.asarray(microf_labels))
+            else:
+                results[average] = f1_score(y_test, preds, average=average)
+        results["accuracy"] =  accuracy_score(y_test, preds)
         all_results[s].append(results)
         results1 = {}
         averages = ["micro", "macro"]
         for average in averages:
-            results1[average] = f1_score(y_test, preds1, average=average)
-        results1["accuracy"] = accuracy_score(y_test, preds1)
+            if average == "micro":
+                results1[average] = f1_score(y_test, preds1, average=average, labels=np.asarray(microf_labels))
+            else:
+                results1[average] = f1_score(y_test, preds1, average=average)
+        results1["accuracy"] =  accuracy_score(y_test, preds1)
         all_results_1[s].append(results1)
         results3 = {}
         averages = ["micro", "macro"]
         for average in averages:
-            results3[average] = f1_score(y_test, preds3, average=average)
-        results3["accuracy"] = accuracy_score(y_test, preds3)
+            if average == "micro":
+                results3[average] = f1_score(y_test, preds3, average=average, labels=np.asarray(microf_labels))
+            else:
+                results3[average] = f1_score(y_test, preds3, average=average)
+        results3["accuracy"] =  accuracy_score(y_test, preds3)
         all_results_3[s].append(results3)
         results5 = {}
         averages = ["micro", "macro"]
         for average in averages:
-            results5[average] = f1_score(y_test, preds5, average=average)
-        results5["accuracy"] = accuracy_score(y_test, preds5)
+            if average == "micro":
+                results5[average] = f1_score(y_test, preds5, average=average, labels=np.asarray(microf_labels))
+            else:
+                results5[average] = f1_score(y_test, preds5, average=average)
+        results5["accuracy"] =  accuracy_score(y_test, preds5)
         all_results_5[s].append(results5)
 
     print('---------------Results------------------')

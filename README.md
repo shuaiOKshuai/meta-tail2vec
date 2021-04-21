@@ -41,7 +41,7 @@ python main.py
 ```
 
 ## Citation
-If you find this useful for your research, we would be appreciated if you cite the following paper:
+
 	@inproceedings{liu2020towards,
 		title={Towards locality-aware meta-learning of tail node embeddings on networks},
 		author={Liu, Zemin and Zhang, Wentao and Fang, Yuan and Zhang, Xinming and Hoi, Steven CH},

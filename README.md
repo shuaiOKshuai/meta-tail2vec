@@ -2,7 +2,7 @@
 
 # Towards Locality-Aware Meta-Learning of Tail Node Embeddings on Networks
 
-This repository is the official implementation of [Towards Locality-Aware Meta-Learning of Tail Node Embeddings on Networks](). 
+This repository is the implementation of [Towards Locality-Aware Meta-Learning of Tail Node Embeddings on Networks](). 
 
 ## Requirements
 

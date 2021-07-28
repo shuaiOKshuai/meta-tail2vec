@@ -2,7 +2,7 @@
 
 # Towards Locality-Aware Meta-Learning of Tail Node Embeddings on Networks
 
-This repository is the implementation (in tensorflow) of our paper [Towards Locality-Aware Meta-Learning of Tail Node Embeddings on Networks](), which is published in CIKM-2020.
+This repository is the implementation (in tensorflow) of our paper [Towards Locality-Aware Meta-Learning of Tail Node Embeddings on Networks](https://zemin-liu.github.io/papers/CIKM-20-towards-locality-aware-meta-learning-of-tail-node-embeddings-on-network.pdf), which is published in CIKM-2020.
 
 ## Requirements
 

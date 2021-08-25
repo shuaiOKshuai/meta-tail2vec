@@ -1,4 +1,4 @@
 Python == 3.6
-Tensorflow == 1.13.0
+Tensorflow == 2.5.1
 Numpy == 1.17.2
 Sklearn == 0.21.3
